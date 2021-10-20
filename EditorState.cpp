@@ -88,7 +88,7 @@ void EditorState::update(const float& dt)
 
 }
 
-void EditorState::renderButtons(sf::RenderTarget* target)
+void EditorState::renderButtons(sf::RenderTarget& target)
 {
 	for (auto& it : this->buttons)
 	{
@@ -101,7 +101,7 @@ void EditorState::render(sf::RenderTarget* target)
 	if (!target)
 		target = this->window;
 
-	this->renderButtons(target);
+	this->renderButtons(*target);
 
 	//REMOVE LATER!!!
 	/*sf::Text mouseText;
