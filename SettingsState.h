@@ -1,12 +1,10 @@
-#ifndef MAINMENUSTATE_H
-#define MAINMENUSTATE_H
+#ifndef SETTINGSSTATE_H
+#define SETTINGSSTATE_H
 
-#include "GameState.h"
-#include "EditorState.h"
-#include "SettingsState.h"
+#include "State.h"
 #include "Gui.h"
 
-class MainMenuState :
+class SettingsState :
     public State
 {
 private:
@@ -16,23 +14,27 @@ private:
     sf::Font font;
 
     std::map<std::string, gui::Button*>buttons;
+    std::map<std::string, gui::DropDownList*>dropDrowLists;
 
     //Functions
     void initVariables();
     void initBackground();
     void initFonts();
     void initKeybinds();
-    void initButtons();
+    void initGui();
 
 public:
-    MainMenuState(sf::RenderWindow* window, std::map<std::string, int>* supportedKeys, std::stack<State*>* states);
-  
-    virtual ~MainMenuState();
+    SettingsState(sf::RenderWindow* window, std::map<std::string, int>* supportedKeys, std::stack<State*>* states);
+    virtual ~SettingsState();
+
+    //Accessors
+
     //Functions
     void updateInput(const float& dt);
-    void updateButtons();
+    void updateGui(const float& dt);
     void update(const float& dt);
-    void renderButtons(sf::RenderTarget& target);
+    void renderGui(sf::RenderTarget& target);
     void render(sf::RenderTarget* target = NULL);
 };
-#endif // !MAINMENUSTATE_H
+
+#endif

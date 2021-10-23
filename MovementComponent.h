@@ -10,11 +10,11 @@
 #include<stack>
 #include<map>
 
-#include <SFML/System.hpp>
-#include <SFML/Window.hpp>
-#include <SFML/Graphics.hpp>
-#include <SFML/audio.hpp>
-#include <SFML/Network.hpp>
+#include "SFML/System.hpp"
+#include "SFML/Window.hpp"
+#include "SFML/Graphics.hpp"
+#include "SFML/Audio.hpp"
+#include "SFML/Network.hpp"
 
 enum movement_states{IDLE = 0, MOVING, MOVING_LEFT, MOVING_RIGHT, MOVING_UP, MOVING_DOWN};
 
@@ -38,6 +38,7 @@ public:
 	virtual ~MovementComponent();
 
 	//Accessors
+	const float& getMaxVelocity() const;
 	const sf::Vector2f& getVelocity() const;
 
 	//Functions

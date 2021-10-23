@@ -8,6 +8,7 @@ class Player :
 {
 private:
     //Variables
+    bool attacking;
 
     //Initializer functions
     void initVariable();
@@ -17,6 +18,8 @@ public:
     virtual ~Player();
 
     //Funtions
+    void updateAttack();
+    void updateAnimation(const float& dt);
     virtual void update(const float& dt);
 };
 

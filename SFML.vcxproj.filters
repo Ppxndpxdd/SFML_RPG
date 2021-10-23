@@ -22,6 +22,12 @@
     <Filter Include="Components">
       <UniqueIdentifier>{767bb27b-8e1a-4aaf-bbb2-58bf7e60e48e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GUI">
+      <UniqueIdentifier>{92bd8b27-58e7-4d1b-8537-dbd10a29cd11}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tile">
+      <UniqueIdentifier>{eaf19338-89d0-49ca-b566-b475c4d808c4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -36,7 +42,7 @@
     <ClCompile Include="State.cpp">
       <Filter>States</Filter>
     </ClCompile>
-    <ClCompile Include="Button.cpp">
+    <ClCompile Include="Gui.cpp">
       <Filter>Resource Files</Filter>
     </ClCompile>
     <ClCompile Include="Entity.cpp">
@@ -60,6 +66,15 @@
     <ClCompile Include="HitboxComponent.cpp">
       <Filter>Components</Filter>
     </ClCompile>
+    <ClCompile Include="Tile.cpp">
+      <Filter>Tile</Filter>
+    </ClCompile>
+    <ClCompile Include="PauseMenu.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="SettingsState.cpp">
+      <Filter>States</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -71,7 +86,7 @@
     <ClInclude Include="State.h">
       <Filter>States</Filter>
     </ClInclude>
-    <ClInclude Include="Button.h">
+    <ClInclude Include="Gui.h">
       <Filter>Resource Files</Filter>
     </ClInclude>
     <ClInclude Include="Entity.h">
@@ -94,6 +109,15 @@
     </ClInclude>
     <ClInclude Include="HitboxComponent.h">
       <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Tile.h">
+      <Filter>Tile</Filter>
+    </ClInclude>
+    <ClInclude Include="PauseMenu.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="SettingsState.h">
+      <Filter>States</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
