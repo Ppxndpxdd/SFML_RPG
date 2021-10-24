@@ -1,8 +1,9 @@
+#include "stdafx.h"
 #include "SettingsState.h"
 
 void SettingsState::initVariables()
 {
-
+	this->modes = sf::VideoMode::getFullscreenModes();
 }
 
 void SettingsState::initBackground()
@@ -49,24 +50,50 @@ void SettingsState::initKeybinds()
 
 void SettingsState::initGui()
 {
-	this->buttons["EXIT_STATE"] = new gui::Button(
-		900.f, 880.f, 250.f, 50.f,
+	this->buttons["BACK"] = new gui::Button(
+		1500.f, 880.f, 250.f, 50.f,
 		&this->font, "Back", 50,
 		sf::Color(70, 70, 70, 200), sf::Color(250, 250, 250, 250), sf::Color(20, 20, 20, 50),
 		sf::Color(100, 100, 100, 0), sf::Color(150, 150, 150, 0), sf::Color(20, 20, 20, 0));
 
-	std::string li[] = { "1920x1080", "800x600", "640x480"};
-	this->dropDrowLists["RESOLUTION"] = new gui::DropDownList(800, 450, 200, 50, font, li, 3);
+	this->buttons["APPLY"] = new gui::Button(
+		1300.f, 880.f, 250.f, 50.f,
+		&this->font, "Apply", 50,
+		sf::Color(70, 70, 70, 200), sf::Color(250, 250, 250, 250), sf::Color(20, 20, 20, 50),
+		sf::Color(100, 100, 100, 0), sf::Color(150, 150, 150, 0), sf::Color(20, 20, 20, 0));
+
+	std::vector<std::string> modes_str;
+	for (auto& i : this->modes)
+	{
+		modes_str.push_back(std::to_string(i.width) + 'x' + std::to_string(i.height));
+	}
+
+	this->dropDrowLists["RESOLUTION"] = new gui::DropDownList(800, 450, 200, 50, font, modes_str.data(), modes_str.size());
 }
 
-SettingsState::SettingsState(sf::RenderWindow* window, std::map<std::string, int>* supportedKeys, std::stack<State*>* states)
-	:State(window, supportedKeys, states)
+void SettingsState::initText()
+{
+	this->optionsText.setFont(this->font);
+
+	this->optionsText.setPosition(sf::Vector2f(100.f, 450.f));
+
+	this->optionsText.setCharacterSize(30);
+	this->optionsText.setFillColor(sf::Color(255, 255, 255, 200));
+
+	this->optionsText.setString(
+		"Resolution \n\nFullscreen \n\nVsync \n\nAntialiasing \n\n "
+	);
+}
+
+SettingsState::SettingsState(sf::RenderWindow* window, GraphicsSettings& gfxSettings, std::map<std::string, int>* supportedKeys, std::stack<State*>* states)
+	:State(window, supportedKeys, states), gfxSettings(gfxSettings)
 {
 	this->initVariables();
 	this->initBackground();
 	this->initFonts();
 	this->initKeybinds();
 	this->initGui();
+	this->initText();
 }
 
 SettingsState::~SettingsState()
@@ -104,8 +131,17 @@ void SettingsState::updateGui(const float& dt)
 
 	//Button functionality
 	//Quit the game
-	if (this->buttons["EXIT_STATE"]->isPressed())
+	if (this->buttons["BACK"]->isPressed())
+	{
 		this->endState();
+	}
+	//Apply selected settings
+	if (this->buttons["APPLY"]->isPressed())
+	{
+		//Test (remove later)
+		this->gfxSettings.resolution = this->modes[this->dropDrowLists["RESOLUTION"]->getActiveElementId()];
+		this->window->create(this->gfxSettings.resolution, this->gfxSettings.title, sf::Style::Default);
+	}
 
 	//Dropdownlists
 	for (auto& it : this->dropDrowLists)
@@ -146,6 +182,8 @@ void SettingsState::render(sf::RenderTarget* target)
 	target->draw(this->background);
 
 	this->renderGui(*target);
+	
+	target->draw(this->optionsText);
 
 	//REMOVE LATER!!!
 	sf::Text mouseText;
