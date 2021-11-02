@@ -23,7 +23,7 @@ private:
 			float animation_timer,
 			int start_frame_x, int start_frame_y, int frames_x, int frames_y, int width, int height)
 			: sprite(sprite), textureSheet(texture_sheet),
-			animationTimer(animation_timer),timer(0.f),done(false), 
+			animationTimer(animation_timer), timer(0.f), done(false),
 			width(width), height(height)
 		{
 			this->timer = 0.f;
@@ -74,7 +74,7 @@ private:
 			//Update timer
 			if (mod_percent < 0.5f)
 				mod_percent = 0.5f;
-			
+
 			this->done = false;
 			this->timer += mod_percent * 100.f * dt;
 			if (this->timer >= this->animationTimer)
@@ -115,7 +115,7 @@ private:
 public:
 	AnimationComponent(sf::Sprite& sprite, sf::Texture& texture_sheet);
 	virtual ~AnimationComponent();
-	
+
 	//Accessor
 	const bool& isDone(const std::string key);
 
@@ -128,5 +128,5 @@ public:
 	const bool& play(const std::string key, const float& dt, const float& modifier, const float& modifier_max, const bool priority = false);
 };
 
-#endif // !1
+#endif
 

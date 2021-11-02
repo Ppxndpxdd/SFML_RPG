@@ -3,33 +3,67 @@
 
 #include "GameState.h"
 #include "Gui.h"
+#include "PauseMenu.h"
+#include "TileMap.h"
+
+class State;
+class Gui;
+class PauseMenu;
+class Tilemap;
 
 class EditorState :
-    public State
+	public State
 {
 private:
-    //variables
-    sf::Font font;
+	//variables
+	sf::View view;
 
-    std::map<std::string, gui::Button*>buttons;
+	sf::Font font;
+	sf::Text cursorText;
+	PauseMenu* pmenu;
 
-    //Functions
-    void initVariables();
-    void initBackground();
-    void initFonts();
-    void initKeybinds();
-    void initButtons();
+	std::map<std::string, gui::Button*>buttons;
+
+	TileMap* tileMap;
+
+	sf::RectangleShape sidebar;
+
+	sf::RectangleShape selectorRect;
+
+	gui::TextureSelector* textureSelector;
+
+	sf::IntRect textureRect;
+	bool collision;
+	short type;
+	float cameraSpeed;
+	int layer;
+
+	//Functions
+	void initVariables();
+	void initView();
+	void initBackground();
+	void initFonts();
+	void initText();
+	void initKeybinds();
+	void initPauseMenu();
+	void initButtons();
+	void initGui();
+	void initTileMap();
 
 public:
-    EditorState(sf::RenderWindow* window, std::map<std::string, int>* supportedKeys, std::stack<State*>* states);
+	EditorState(StateData* state_data);
 
-    virtual ~EditorState();
-    //Functions
-    void updateInput(const float& dt);
-    void updateButtons();
-    void update(const float& dt);
-    void renderButtons(sf::RenderTarget& target);
-    void render(sf::RenderTarget* target = NULL);
+	virtual ~EditorState();
+	//Functions
+	void updateInput(const float& dt);
+	void updateEditorInput(const float& dt);
+	void updateButtons();
+	void updateGui(const float& dt);
+	void updatePauseMenuButtons();
+	void update(const float& dt);
+	void renderButtons(sf::RenderTarget& target);
+	void renderGui(sf::RenderTarget& target);
+	void render(sf::RenderTarget* target = NULL);
 };
 
 #endif

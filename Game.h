@@ -8,7 +8,8 @@ class Game
 private:
 	//Variables
 	GraphicsSettings gfxSettings;
-	sf::RenderWindow *window;
+	StateData stateData;
+	sf::RenderWindow* window;
 	sf::Event sfEvent;
 
 	sf::Clock dtclock;
@@ -18,11 +19,14 @@ private:
 
 	std::map<std::string, int> supportedKeys;
 
+	float gridSize;
+
 	//Initialization
 	void initVariable();
 	void initGraphicSettings();
 	void initwindow();
 	void initKeys();
+	void initStateData();
 	void initStates();
 
 public:

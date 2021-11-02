@@ -16,10 +16,11 @@ Player::Player(float x, float y, sf::Texture& texture_sheet)
 	this->initVariable();
 
 	this->setPosition(x, y);
-	
+
 	this->createHitboxComponent(this->sprite, 15.f, 11.f, 33.f, 53.f);
-	this->createMovementComponent(350.f, 15.f, 5.f);
+	this->createMovementComponent(350.f, 1500.f, 500.f);
 	this->createAnimationComponent(texture_sheet);
+	this->createAttributeComponent(1);
 
 	//this->animationComponent->addAnimation("IDLE", 10.f, 0, 0, 14, 0, 616, 566);
 	//this->animationComponent->addAnimation("WALK", 10.f, 0, 1, 14, 1, 616, 566);
@@ -31,7 +32,7 @@ Player::Player(float x, float y, sf::Texture& texture_sheet)
 	this->animationComponent->addAnimation("WALK_RIGHT", 6.f, 0, 11, 8, 11, 64, 64);
 	this->animationComponent->addAnimation("ATTACK_LEFT", 5.f, 0, 25, 5, 25, 64 * 3, 64);
 	this->animationComponent->addAnimation("ATTACK_RIGHT", 5.f, 0, 31, 5, 31, 64 * 3, 64);
-	
+
 }
 
 Player::~Player()
@@ -39,7 +40,42 @@ Player::~Player()
 
 }
 
+AttributeComponent* Player::getAttributeComponent()
+{
+	return this->attributeComponent;
+}
+
 //Funtions
+void Player::loseHP(const int hp)
+{
+	this->attributeComponent->hp -= hp;
+
+	if (this->attributeComponent->hp < 0)
+		this->attributeComponent->hp = 0;
+	
+}
+
+void Player::gainHP(const int hp)
+{
+	this->attributeComponent->hp += hp;
+
+	if (this->attributeComponent->hp > this->attributeComponent->hpMax)
+		this->attributeComponent->hp = this->attributeComponent->hpMax;
+}
+
+void Player::loseEXP(const unsigned exp)
+{
+	this->attributeComponent->exp -= exp;
+
+	if (this->attributeComponent->exp < 0)
+		this->attributeComponent->exp = 0;
+}
+
+void Player::gainEXP(const unsigned exp)
+{
+	this->attributeComponent->gainExp(exp);
+}
+
 void Player::updateAttack()
 {
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
@@ -116,8 +152,15 @@ void Player::update(const float& dt)
 	this->movementComponent->update(dt);
 
 	this->updateAttack();
-	
+
 	this->updateAnimation(dt);
 
 	this->hitboxComponent->update();
+}
+
+void Player::render(sf::RenderTarget& target)
+{
+	target.draw(this->sprite);
+
+	this->hitboxComponent->render(target);
 }

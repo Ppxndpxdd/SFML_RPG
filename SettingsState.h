@@ -5,42 +5,41 @@
 #include "Gui.h"
 
 class SettingsState :
-    public State
+	public State
 {
 private:
-    //variables
-    GraphicsSettings& gfxSettings;
-    sf::Texture backgroundTexture;
-    sf::RectangleShape background;
-    sf::Font font;
+	//variables
+	sf::Texture backgroundTexture;
+	sf::RectangleShape background;
+	sf::Font font;
 
-    std::map<std::string, gui::Button*>buttons;
-    std::map<std::string, gui::DropDownList*>dropDrowLists;
+	std::map<std::string, gui::Button*>buttons;
+	std::map<std::string, gui::DropDownList*>dropDrowLists;
 
-    sf::Text optionsText;
+	sf::Text optionsText;
 
-    std::vector < sf::VideoMode> modes;
+	std::vector < sf::VideoMode> modes;
 
-    //Functions
-    void initVariables();
-    void initBackground();
-    void initFonts();
-    void initKeybinds();
-    void initGui();
-    void initText();
+	//Functions
+	void initVariables();
+	void initBackground();
+	void initFonts();
+	void initKeybinds();
+	void initGui();
+	void initText();
 
 public:
-    SettingsState(sf::RenderWindow* window, GraphicsSettings& gfxSettings, std::map<std::string, int>* supportedKeys, std::stack<State*>* states);
-    virtual ~SettingsState();
+	SettingsState(StateData* state_data);
+	virtual ~SettingsState();
 
-    //Accessors
+	//Accessors
 
-    //Functions
-    void updateInput(const float& dt);
-    void updateGui(const float& dt);
-    void update(const float& dt);
-    void renderGui(sf::RenderTarget& target);
-    void render(sf::RenderTarget* target = NULL);
+	//Functions
+	void updateInput(const float& dt);
+	void updateGui(const float& dt);
+	void update(const float& dt);
+	void renderGui(sf::RenderTarget& target);
+	void render(sf::RenderTarget* target = NULL);
 };
 
 #endif

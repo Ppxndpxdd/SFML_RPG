@@ -3,6 +3,8 @@
 
 #include "Gui.h"
 
+class Gui;
+
 class PauseMenu
 {
 private:
@@ -24,9 +26,9 @@ public:
 	std::map<std::string, gui::Button*>& getButtons();
 
 	//Funtions
-	const bool isButtonPressed(const std::string key) ;
+	const bool isButtonPressed(const std::string key);
 	void addButton(const std::string key, float y, std::string text);
-	void update(const sf::Vector2f& mousePos);
+	void update(const sf::Vector2i& mousePosWindow);
 	void render(sf::RenderTarget& target);
 };
 
