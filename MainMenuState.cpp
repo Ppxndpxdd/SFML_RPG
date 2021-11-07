@@ -7,22 +7,6 @@ void MainMenuState::initVariables()
 
 }
 
-void MainMenuState::initBackground()
-{
-	this->background.setSize(
-		sf::Vector2f
-		(
-			static_cast<float>(this->window->getSize().x),
-			static_cast<float>(this->window->getSize().y)
-		)
-	);
-	if (!this->backgroundTexture.loadFromFile("Resources/Images/Backgrounds/bg1.png"))
-	{
-		throw"ERROR::MAIN_MENU_STATE::FAILED_TO_LOAD_BACKGROUND_TEXTURE";
-	}
-	this->background.setTexture(&this->backgroundTexture);
-}
-
 void MainMenuState::initFonts()
 {
 	if (!this->font.loadFromFile("Fonts/FC_Hype_Bold.ttf"))
@@ -53,6 +37,21 @@ void MainMenuState::initGui()
 {
 	const sf::VideoMode& vm = this->stateData->gfxSettings->resolution;
 
+	//Background
+	this->background.setSize(
+		sf::Vector2f
+		(
+			static_cast<float>(vm.width),
+			static_cast<float>(vm.height)
+		)
+	);
+	if (!this->backgroundTexture.loadFromFile("Resources/Images/Backgrounds/bg1.png"))
+	{
+		throw"ERROR::MAIN_MENU_STATE::FAILED_TO_LOAD_BACKGROUND_TEXTURE";
+	}
+	this->background.setTexture(&this->backgroundTexture);
+
+	//Buttons
 	this->buttons["GAME_STATE"] = new gui::Button(
 		gui::p2pX(42.7f, vm), gui::p2pY(30.f, vm),
 		gui::p2pX(13.f, vm), gui::p2pY(6.f, vm),
@@ -94,6 +93,12 @@ void MainMenuState::resetGui()
 	* 
 	* @return void
 	*/
+	auto it = this->buttons.begin();
+	for (it = this->buttons.begin(); it != this->buttons.end(); ++it)
+	{
+		delete it->second;
+	}
+
 	this->buttons.clear();
 
 	this->initGui();
@@ -104,7 +109,6 @@ MainMenuState::MainMenuState(StateData* state_data)
 	: State(state_data)
 {
 	this->initVariables();
-	this->initBackground();
 	this->initFonts();
 	this->initKeybinds();
 	this->initGui();

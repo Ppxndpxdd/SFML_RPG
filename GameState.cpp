@@ -83,12 +83,13 @@ void GameState::initPauseMenu()
 
 void GameState::initPlayers()
 {
-	this->player = new Player(0, 0, this->textures["PLAYER_SHEET"]);
+	this->player = new Player(30, 30, this->textures["PLAYER_SHEET"]);
 }
 
 void GameState::initPlayerGUI()
 {
-	this->playerGUI = new PlayerGUI(this->player);
+	const sf::VideoMode& vm = this->stateData->gfxSettings->resolution;
+	this->playerGUI = new PlayerGUI(this->player,this->stateData->gfxSettings->resolution);
 }
 
 void GameState::initTileMap()

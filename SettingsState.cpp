@@ -36,7 +36,7 @@ void SettingsState::initGui()
 {
 	const sf::VideoMode& vm = this->stateData->gfxSettings->resolution;
 
-	//bacground
+	//bacKground
 	this->background.setSize(
 		sf::Vector2f
 		(
